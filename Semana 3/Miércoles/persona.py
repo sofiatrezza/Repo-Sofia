@@ -1,0 +1,11 @@
+info = {}
+info["name"] = input("Please enter your full name: ")
+print(info)
+info["age"] = input("Enter your age: ")
+print(info)
+info["gender"] = input("Enter your gender: ")
+print(info)
+info["phone"] = input("Enter a phone number: ")
+print(info)
+info["email"] = input("Enter an email: ")
+print(info)
