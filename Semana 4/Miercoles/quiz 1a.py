@@ -240,7 +240,8 @@ def main():
                 print('Product not found')
         
         elif option == 3:
-            break
+            if input("Do you want to exit?: \nY- Yes \nN - No \n").upper() == "Y": 
+                break
         else:
             continue
 
