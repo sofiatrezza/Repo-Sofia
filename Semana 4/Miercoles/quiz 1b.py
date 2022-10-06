@@ -90,10 +90,9 @@ while True:
         for key, value in client.items():
             print(key, value)
             for  key, value in patologia_seleccionada.items():
-                        print(key, value)
-            else:
-               print('Product not found')
-        
+                    print(key, value)
+                    break
+   
     elif opcion == 3:
             if input("Do you want to exit?: \nY- Yes \nN - No \n").upper() == "Y": 
                 break
