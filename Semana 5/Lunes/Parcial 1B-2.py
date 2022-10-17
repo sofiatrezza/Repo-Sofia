@@ -1,12 +1,11 @@
 def opciones(tarifas):
     for key, value in tarifas.items():
-            print(f"{key} -BsS/hora{value}", end= "")
+            print(f"{key} -BsS/hora {value}", end= "")
             print('')
     opcion = input("Ingrese una opcion: ")
     if tarifas[opcion] is not None:
         return tarifas[opcion]
     
-
 def descuentos(usuario, tarifas):
     descuento = 0
     if usuario.get('horas') > 3:
@@ -34,4 +33,10 @@ while True:
     cliente = datos_cliente(opcion)
     clientes.append(cliente)
     print(clientes)
+    programa = input('Elija una opcion \n1 Nueva inscripcion\n2 Salir\n-->')
+    if programa == "1":
+        continue
+    elif programa == "2":
+        break
+    
 
