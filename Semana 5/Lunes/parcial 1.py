@@ -56,15 +56,15 @@ def main():
     print_welcome()
     while True:
         option = get_option(studies_dict)
-        client = get_client_data(option)
-        clients.append(client) #agregamos el cliente a la base de datos
-        discount = get_discounts(client, studies_dict, len(clients)) #datos del cliente, precios, y si el cliente es impar 
+        cliente = get_client_data(option)
+        clients.append(cliente) #agregamos el cliente a la base de datos
+        discount = get_discounts(cliente, studies_dict, len(clients)) #datos del cliente, precios, y si el cliente es impar 
         print(discount)
-        total = get_net_amount(client, discount)
-        print_invoice(client, studies_dict, total)
+        total = get_net_amount(cliente, discount, studies_dict)
+        print_invoice(cliente, studies_dict, total)
         if input("Do you want to exit: \nY Yes or \nN No") == "Y":
             break
-        print_final_day(clients)
+    
 
 
 main()

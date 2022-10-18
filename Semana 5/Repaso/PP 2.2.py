@@ -19,40 +19,86 @@ B Al final del Día.
 4 El Promedio de Pago de todos los Clientes
 5 El promedio de pago por tipo de estudio'''
 
-def main():
-    estudios = {
-        "U":{"Descripcion":"Ultrasonido",
-        "Precio": 8900},
-        "T":{"Descripcion":"Tomografia",
-        "Precio": 12640},
-        "R":{"Descripcion":"Resonancia",
-        "Precio": 15600}
-    }
-    return estudios
-
+paciente_U = []
+paciente_T = []
+paciente_R = []
+descuentos_otorg = []
 def tipo_estudio(estudios):
     for key,value in estudios.items():
         for key_interno, value_interno in value.items():
             print(f'{key} - {value_interno}', end="")
-    return input('Seleccione una opcion: \n1 Ultrasonido\n2 Tomografia\n3 Resonancia\n-->')
-    
+            print(" ")
+    return input('Seleccione una opcion: \nU Ultrasonido\nT Tomografia\nR Resonancia\n-->')
 
-
-def datos_cliente(estudios):
+def datos_cliente(opcion):
     paciente ={
         "Cedula": input("Ingrese su numero de cedula: "),
         "Edad": input("Ingrese su edad: "),
-        "Sexo": input("Ingrese su sexo--> M - Masculino o F - Femenino:"),
-        "Tipo de Estudio": tipo_estudio
+        "Sexo": input("Ingrese su sexo--> M - Masculino o F - Femenino: "),
+        "Estudio": opcion
     }
     return paciente
 
+def descuentos_pacientes(estudios, paciente, base_datos):
+    descuento = 0
+    if paciente.get("Sexo") == "F" and int(paciente.get("Edad"))> 55:
+        descuento += estudios.get(paciente.get("Estudio")).get("Precio") *0.25
+    if paciente.get("Sexo") == "M" and int(paciente.get("Edad")) > 65:
+        descuento += estudios.get(paciente.get("Estudio")).get("Precio") *0.25
+    if base_datos % 2 != 0:
+        descuento += estudios.get(paciente.get("Estudio")).get("Precio") *0.02
+    descuentos_otorg.append(descuento)
+    print(descuentos_otorg)
+    return descuento
 
-base_datos =  []
-print("Bienvenido al Hospital de Clinicas Caracas")
-while True:
-    opciones = tipo_estudio(estudios)
-    pacientes = datos_cliente(estudios)
+def facturacion(estudios, paciente):
+    print("**** RECEIPT ****")
+    print("Cedula", paciente.get("Cedula"))
+    print("Edad", paciente.get("Edad"))
+    print("Sexo", paciente.get("Sexo"))
+    print("Estudio", estudios.get(paciente.get("Estudio")).get("Descripcion"))
 
+def pago(estudios, paciente, descuento):
+    return estudios.get(paciente.get('Estudio')).get('Precio') - descuento
+
+def cliente_estudio(paciente):
+    if paciente.get("Estudio") == 'Ultrasonido':
+        paciente_U.append(paciente)
+        print(len(paciente_U))
+    if paciente.get("Estudio") == 'Resonancia':
+        paciente_R.append(paciente)
+        print(len(paciente_R))
+    if paciente.get("Estudio") == 'Tomografia':
+        paciente_T.append(paciente)
+        print(len(paciente_T))
+
+def monto_neto(paciente):
+    facturado = 0
+
+
+def main():
+    estudios = {
+        "U":{"Descripcion":"Ultrasonido",
+            "Precio": 8900},
+        "T":{"Descripcion":"Tomografia",
+            "Precio": 12640},
+        "R":{"Descripcion":"Resonancia",
+            "Precio": 15600}
+        }
+
+    base_datos =  []
+    print("Bienvenido al Hospital de Clinicas Caracas")
+    while True:
+        opcion = tipo_estudio(estudios)
+        cliente = datos_cliente(opcion)
+        base_datos.append(cliente)
+        descuentos = descuentos_pacientes(estudios, cliente, len(base_datos))
+        print(descuentos)
+        total = pago(estudios, opcion, descuentos)
+        facturacion(estudios, cliente, total)
+        print("**** REPORTE DIARIO ****")
+        cliente_estudios = cliente_estudio(opcion)
+        
 
 main()
+

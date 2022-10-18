@@ -8,6 +8,4 @@ def primos(x):
             return False
     print('Es primo')     
     return True
-
-
-    primos()
+primos(17)
